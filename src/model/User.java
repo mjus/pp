@@ -1,18 +1,38 @@
 package model;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class User implements Serializable {
-    private long id;
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
     private String name;
-    private String soName;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "email")
     private String email;
 
     public User(){}
 
-    public User(String name, String soName, String email) {
+    public User(String name, String surname, String email) {
+        this.id = null;
         this.name = name;
-        this.soName = soName;
+        this.surname = surname;
+        this.email = email;
+    }
+
+    public User(Long id, String name, String surname, String email) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
         this.email = email;
     }
 
@@ -32,12 +52,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getSoName() {
-        return soName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSoName(String soName) {
-        this.soName = soName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
