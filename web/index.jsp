@@ -21,7 +21,7 @@
         </thead>
         <tr>
             <form action="" method="POST">
-                <th><input type="hidden" name="action" value="add"></th>
+                <th><input type="hidden" name="action" value="add" ></th>
                 <th><input type="text" name="name"></th>
                 <th><input type="text" name="surname"></th>
                 <th><input type="text" name="email"></th>
@@ -37,20 +37,10 @@
                 <td>${user.name}</td>
                 <td>${user.surname}</td>
                 <td>${user.email}</td>
-                <td>
-                    <form action="" method="get">
-                        <input type="hidden" name="action" value="update">
-                        <input type="hidden" name="id" value="${user.id}">
-                        <input type="submit" value="edit">
-                    </form>
-                </td>
-                <td>
-                  <form action="" method="get">
-                    <input type="hidden" name="action" value="delete">
-                    <input type="hidden" name="id" value="${user.id}">
-                    <input type="submit" value="delete">
-                  </form>
-                </td>
+                <td><form action="/update" method="POST">
+                    <a href="/?action=update&id=${user.id}">edit</a></form></td>
+                <td><form action="/delete" method="POST">
+                    <a href="/?action=delete&id=${user.id}">delete</a></form></td>
             </tr>
         </c:forEach>
     </table>

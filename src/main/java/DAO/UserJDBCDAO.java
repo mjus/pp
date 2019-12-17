@@ -1,6 +1,7 @@
-package DAO;
+package main.java.DAO;
 
-import model.User;
+import main.java.model.User;
+import main.java.util.DBHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ public class UserJDBCDAO implements UserDAO {
 
     private Connection connection;
 
-    public UserJDBCDAO(Connection connection) {
-        this.connection = connection;
+    public UserJDBCDAO() {
+        this.connection = DBHelper.getInstance().getConnection();
     }
 
     public List<User> getAllUsers() {
@@ -59,15 +60,23 @@ public class UserJDBCDAO implements UserDAO {
         }
     }
 
-    public User getUserByID(Long id) throws SQLException {
-        PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM pp_1 WHERE Id =?");
-        pstmt.setLong(1, id);
-        ResultSet resultSet = pstmt.executeQuery();
+    public User getUserByID(Long id) {
+        PreparedStatement pstmt = null;
+        User user = null;
+        try {
+            pstmt = connection.prepareStatement("SELECT * FROM pp_1 WHERE Id =?");
 
-        resultSet.next();
-        return new User(resultSet.getLong(1),
-                resultSet.getString(2),
-                resultSet.getString(3),
-                resultSet.getString(4));
+            pstmt.setLong(1, id);
+            ResultSet resultSet = pstmt.executeQuery();
+            resultSet.next();
+
+            user = new User(resultSet.getLong(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

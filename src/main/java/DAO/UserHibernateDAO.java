@@ -1,12 +1,15 @@
-package DAO;
+package main.java.DAO;
 
-import model.User;
+import main.java.model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import util.DBHelper;
+import main.java.util.DBHelper;
+import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
 
@@ -15,12 +18,16 @@ public class UserHibernateDAO implements UserDAO {
     private SessionFactory sessionFactory;
 
     public UserHibernateDAO() {
-        this.sessionFactory = DBHelper.getSessionFactory();
+        Configuration configuration = DBHelper.getInstance().getConfiguration();
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+        builder.applySettings(configuration.getProperties());
+        ServiceRegistry serviceRegistry = builder.build();
+        this.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
     @Override
     public List<User> getAllUsers() {
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from User").list();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -31,7 +38,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public void addUser(String name, String soName, String email) {
         User user = new User(name, soName, email);
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.save(user);
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -40,7 +47,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void delete(Long id) {
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Query query = session.createQuery("delete User where id = :id");
             query.setParameter("id", id);
@@ -53,7 +60,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void updateUser(Long id, String name, String surname, String email) {
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Query query = session.createQuery("UPDATE User SET name =:name, surname =:surname, email =:email WHERE id =:id");
             query.setParameter("id", id);

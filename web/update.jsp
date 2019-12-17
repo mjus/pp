@@ -8,7 +8,7 @@
 
     <h2>Update user</h2><br/>
 
-    <form action="/" method="POST">
+    <form method="POST" action="">
 
         <table border="3">
             <tr>
