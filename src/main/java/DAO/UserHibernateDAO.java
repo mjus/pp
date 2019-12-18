@@ -85,4 +85,35 @@ public class UserHibernateDAO implements UserDAO {
             return null;
         }
     }
+
+    @Override
+    public String getRoleByLoginAndPassword(String login, String password) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("from User where email = :login and password = :password");
+            query.setParameter("login", login);
+            query.setParameter("password", password);
+            User user = (User) query.uniqueResult();
+            return user.getRole();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean userIsExist(String login, String password) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("from User where email = :login and password = :password");
+            query.setParameter("login", login);
+            query.setParameter("password", password);
+            User user = (User) query.uniqueResult();
+            if (user==null){
+                return false;
+            }
+            return user.getEmail().equals(login) && user.getPassword().equals(password);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

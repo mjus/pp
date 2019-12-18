@@ -3,6 +3,8 @@ package main.java.service;
 import main.java.DAO.UserDAO;
 import main.java.DAO.UserDaoFactory;
 import main.java.model.User;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
@@ -43,5 +45,23 @@ public class UserService {
 
     public User getUserById(long id) {
         return userDao.getUserByID(id);
+    }
+
+    public String getRoleByLoginAndPassword(String login, String password) {
+        try {
+            return userDao.getRoleByLoginAndPassword(login, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean isUserExist(String login, String password) {
+        try {
+            return userDao.userIsExist(login, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

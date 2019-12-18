@@ -79,4 +79,24 @@ public class UserJDBCDAO implements UserDAO {
         }
         return user;
     }
+
+    @Override
+    public String getRoleByLoginAndPassword(String login, String password) throws SQLException {
+        PreparedStatement pstmt = connection.prepareStatement("SELECT role FROM users WHERE login =? AND password =?");
+        pstmt.setString(1, login);
+        pstmt.setString(2, password);
+        ResultSet resultSet = pstmt.executeQuery();
+        resultSet.next();
+        return resultSet.getString(1);
+    }
+
+    @Override
+    public boolean userIsExist(String login, String password) throws SQLException {
+        PreparedStatement pstmt = connection.prepareStatement("SELECT login, password FROM users WHERE login =? AND password =?");
+        pstmt.setString(1, login);
+        pstmt.setString(2, password);
+        ResultSet resultSet = pstmt.executeQuery();
+        resultSet.next();
+        return resultSet.getString(1).equals(login) && resultSet.getString(2).equals(password);
+    }
 }
