@@ -53,6 +53,7 @@
             </tr>
         </c:forEach>
     </table>
+    <a href="/logout">exit</a>
     </body>
 </div>
 </html>

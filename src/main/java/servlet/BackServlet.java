@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/back")
+@WebServlet("/logout")
 public class BackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        HttpSession session = req.getSession();
-//        session.removeAttribute("login");
-//        session.removeAttribute("password");
-//        session.removeAttribute("role");
+        HttpSession session = req.getSession();
+        session.removeAttribute("login");
+        session.removeAttribute("password");
+        session.removeAttribute("role");
         resp.sendRedirect("/");
     }
 }
