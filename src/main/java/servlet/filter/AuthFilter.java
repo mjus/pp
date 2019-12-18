@@ -46,7 +46,7 @@ public class AuthFilter implements Filter {
         } else if (role.equals("user")) {
             resp.sendRedirect("/user");
         } else {
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
         }
     }
 }

@@ -6,7 +6,6 @@
 <div align="center">
 <h3>Hi user!!!</h3>
 <h3>You can do nothing!!!</h3>
-    <a href="/back">logout</a>
-</div>
+    <a href="/logout">exit</a></div>
 </body>
 </html>
