@@ -11,19 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/*")
+@WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
     UserService service = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if (action == null || action.contains("auth")) {
+        if (action == null) {
             List<User> users = service.getAllUsers();
             req.setAttribute("users", users);
             req.getRequestDispatcher("admin.jsp").forward(req, resp);
-        } else if (action.contains("back")) {
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
         } else if (action.contains("update")) {
             User user = service.getUserById(Long.parseLong(req.getParameter("id")));
             req.setAttribute("user", user);

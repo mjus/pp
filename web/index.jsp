@@ -8,7 +8,7 @@
 
     <h2>Welcome!!!</h2><br/>
 
-    <form method="get" action="admin/">
+    <form method="get" action="admin">
 
         <table border="3">
             <tr>

@@ -1,4 +1,7 @@
-package main.java.servlet.auth;
+package main.java.servlet.filter;
+
+import main.java.model.User;
+import main.java.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,17 +12,18 @@ import java.io.IOException;
 
 import static java.util.Objects.nonNull;
 
-@WebFilter("/user/*")
-public class UserLoginFilter implements Filter {
+@WebFilter(urlPatterns = "/admin/*")
+public class AdminLoginFilter implements Filter {
+
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse
+            , FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
         HttpSession session = req.getSession();
 
-        if (nonNull(session.getAttribute("role")) && (session.getAttribute("role").equals("user")
-                || session.getAttribute("role").equals("admin"))) {
+        if (nonNull(session.getAttribute("role")) && session.getAttribute("role").equals("admin")) {
             filterChain.doFilter(req, resp);
         } else {
             session.removeAttribute("login");
