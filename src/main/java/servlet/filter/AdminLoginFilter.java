@@ -26,9 +26,9 @@ public class AdminLoginFilter implements Filter {
         if (nonNull(session.getAttribute("role")) && session.getAttribute("role").equals("admin")) {
             filterChain.doFilter(req, resp);
         } else {
-            session.removeAttribute("login");
-            session.removeAttribute("password");
-            session.removeAttribute("role");
+//            session.removeAttribute("login");
+//            session.removeAttribute("password");
+//            session.removeAttribute("role");
             resp.sendRedirect("/");
         }
     }

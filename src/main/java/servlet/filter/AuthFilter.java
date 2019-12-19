@@ -27,7 +27,7 @@ public class AuthFilter implements Filter {
         HttpSession session = reg.getSession();
 
         if (nonNull(session.getAttribute("login")) && nonNull(session.getAttribute("password"))) {
-            moveToView(reg, resp, String.valueOf(session.getAttribute("role")));
+            moveToView(reg, resp, (String) session.getAttribute("role"));
         } else if (service.isUserExist(login, password)) {
             String roles = service.getRoleByLoginAndPassword(login, password);
 
