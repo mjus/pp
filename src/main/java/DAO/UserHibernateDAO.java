@@ -89,7 +89,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public String getRoleByLoginAndPassword(String login, String password) {
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("from User where email = :login and password = :password");
+            Query query = session.createQuery("from User where login = :login and password = :password");
             query.setParameter("login", login);
             query.setParameter("password", password);
             User user = (User) query.uniqueResult();
@@ -103,7 +103,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public boolean userIsExist(String login, String password) {
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("from User where email = :login and password = :password");
+            Query query = session.createQuery("from User where login = :login and password = :password");
             query.setParameter("login", login);
             query.setParameter("password", password);
             User user = (User) query.uniqueResult();

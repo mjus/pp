@@ -4,7 +4,6 @@ import main.java.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,7 +11,7 @@ import java.io.IOException;
 
 import static java.util.Objects.nonNull;
 
-@WebFilter("/")
+@WebFilter("/auth")
 public class AuthFilter implements Filter {
     UserService service = UserService.getInstance();
 

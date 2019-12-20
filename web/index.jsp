@@ -8,7 +8,7 @@
 
     <h2>Welcome!!!</h2><br/>
 
-    <form method="post" action="">
+    <form method="post" action="auth">
 
         <table border="3">
             <tr>
@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>
-                    <input type="submit" value="OK">
+                    <button type="submit">OK</button>
                 </th>
                 <th></th>
             </tr>

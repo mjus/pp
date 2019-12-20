@@ -82,6 +82,9 @@ public class User {
         this.role = role;
     }
 
+    @Column(name = "login", unique = true)
+    private String login;
+
     public String getPassword() {
         return password;
     }
